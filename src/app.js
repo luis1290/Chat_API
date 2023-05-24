@@ -4,6 +4,7 @@ require("dotenv").config();
 const apiRoutes = require("./routes");
 const errorRoutes = require("./routes/errors.routes");
 const initModels = require("./models/initModels");
+const db = require('./utils/database');
 
 initModels();
 const app = express();
@@ -12,6 +13,12 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 8000;
+
+db.sync({ force: true })
+  .then(() => console.log('base de datos sincronizada'))
+  .catch(err => console.log(err));
+
+
 
 app.get("/", (req, res) => {
   res.send("Servidor trabajando OK");
