@@ -11,7 +11,7 @@ const Conversations = db.define("conversations", {
         allowNull: false,
         field: "type_id"
     },
-    createBy: {
+    createdBy: {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: "created_by"
