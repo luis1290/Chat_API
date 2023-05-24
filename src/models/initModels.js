@@ -9,24 +9,26 @@ const Users = require("./users.model");
 const initModels = () => {
 
   // relacion entre users conversetion 1-m
-  Users.belongsTo(Conversations, { foreignKey: "createBy" });
-  Conversations.hasMany(Users, { foreignKey: "createBy" });
+  Users.hasMany(Conversations, { foreignKey: "createdBy" });
+  Conversations.belongsTo(Users, { foreignKey: "createdBy" });
 
   // relacion users messages
-  Users.belongsTo(Messanges, { foreignKey: "createdBy" });
-  Messanges.hasMany(Users, { foreignKey: "createdBy" });
+  Users.hasMany(Messanges, { foreignKey: "createdBy" });
+  Messanges.belongsTo(Users, { foreignKey: "createdBy" });
 
   // relacion conversation a typs
-  Types.belongsTo(Conversations, { foreignKey: "typeId" });
-  Conversations.hasMany(Types, { foreignKey: "typeId" });
+  Types.hasMany(Conversations, { foreignKey: "typeId" });
+  Conversations.belongsTo(Types, { foreignKey: "typeId" });
 
   // relacion message a conversation
-  Conversations.belongsTo(Messanges, { foreignKey: "conversationId" });
-  Messanges.hasMany(Conversations, { foreignKey: "conversationId" });
+  Conversations.hasMany(Messanges, { foreignKey: "conversationId" });
+  Messanges.belongsTo(Conversations, { foreignKey: "conversationId" });
 
   // relacion de muchos a muchos
-  Users.belongsToMany(Conversations, { through: "users_conversations", foreignKey: "userId", otherKey: "conversaionId", timestamps: false });
-  Conversations.belongsToMany(Users, { through: "users_conversations", foreignKey: "conversaionId", otherKey: "userId", timestamps: false });
+ 
+  Users.belongsToMany(Conversations, { through: UsersConversations, foreignKey: "userId", otherKey: "conversaionId", timestamps: false });
+  Conversations.belongsToMany(Users, { through: UsersConversations, foreignKey: "conversaionId", otherKey: "userId", timestamps: false });
+  
 };
 
 module.exports = initModels;
