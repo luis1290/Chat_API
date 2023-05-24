@@ -12,6 +12,9 @@ const UsersConversations = db.define('users_conversations',{
     allowNull: false,
     field: "conversation_id"
   }
-});
+},{
+  timestamps: false
+}
+);
 
 module.exports = UsersConversations;
