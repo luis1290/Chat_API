@@ -28,12 +28,6 @@ const Users = db.define(
         isEmail: true,
       },
     },
-    rolId: {
-      type: DataTypes.INTEGER,
-      field: "rol_id",
-      defaultValue: 1,
-      allowNull: false,
-    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
