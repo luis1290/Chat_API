@@ -1,4 +1,4 @@
-# Forum API
+# Chat API
 
 Esta es una API de chat
 
