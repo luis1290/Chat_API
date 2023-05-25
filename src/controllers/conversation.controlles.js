@@ -25,6 +25,5 @@ const getConversationByUser = async (req, res, next) => {
 
 module.exports = {
   createConversation,
-  getConversationByUser,
-  createGroupConversation
+  getConversationByUser
 };
