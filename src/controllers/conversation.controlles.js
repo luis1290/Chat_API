@@ -16,7 +16,6 @@ const getConversationByUser = async (req, res, next) => {
     const { createdBy } = req.params;
     const userConversations = await Conversations.findAll({
       where: { createdBy },
-
     })
     res.json(userConversations);
   } catch (error) {
@@ -26,5 +25,6 @@ const getConversationByUser = async (req, res, next) => {
 
 module.exports = {
   createConversation,
-  getConversationByUser
+  getConversationByUser,
+  createGroupConversation
 };
