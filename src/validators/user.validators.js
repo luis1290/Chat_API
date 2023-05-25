@@ -3,49 +3,49 @@ const { check } = require("express-validator");
 const validateResult = require("../utils/validate");
 
 const createUserValidator = [
-  check("username", "Error con el campo username")
+  check("username", "Error with username field")
     .exists()
-    .withMessage("Username es obligatorio")
+    .withMessage("username is required")
     .notEmpty()
-    .withMessage("Username no debe estar vacio")
+    .withMessage("Username must not be empty")
     .isString()
-    .withMessage("El tipo de dato debe ser string")
+    .withMessage("The data type must be string")
     .isLength({ min: 6, max: 30 })
-    .withMessage("El username debe tener minimo 6 caracteres y máximo 30"),
-  check("email", "Error con el campo email")
+    .withMessage("The username must have a minimum of 6 characters and a maximum of 30"),
+  check("email", "Error with the email field")
     .exists()
-    .withMessage("email es obligatorio")
+    .withMessage("email is required")
     .notEmpty()
-    .withMessage("email no puede estar vacio")
+    .withMessage("email cannot be empty")
     .isString()
-    .withMessage("email debe ser un string")
+    .withMessage("email must be a string")
     .isEmail()
-    .withMessage("email no tiene formato de correo")
+    .withMessage("email does not have email format")
     .isLength()
-    .withMessage("El email debe tener minimo 10 caracteres y máximo 50"),
-  check("password", "Error con el password")
+    .withMessage("The email must have a minimum of 10 characters and a maximum of 50"),
+  check("password", "Password error")
     .exists()
-    .withMessage("password es obligatorio")
+    .withMessage("password is required")
     .notEmpty()
-    .withMessage("password no puede estar vacio")
+    .withMessage("password cannot be empty")
     .isString()
-    .withMessage("El password debe ser un string")
+    .withMessage("The password must be a string")
     .isLength({ min: 8 })
-    .withMessage("El password debe tener minimo 8 caracteres"),
+    .withMessage("The password must have a minimum of 8 characters"),
   validateResult,
 ];
 
 const loginUserValidator = [
-  check("email", "Error con el campo email")
-    .exists().withMessage("El email no se esta enviando")
-    .notEmpty().withMessage("El email no tiene que ir vasido")
-    .isEmail().withMessage("el campo deve ser un email")
-    .isLength({ min: 10, max: 50 }).withMessage("el emai deve tener minimo 10 caracteres y maximo 50 caracteres"),
-  check("password", "Error con el campo password")
-    .exists().withMessage("el password es nesesario")
-    .notEmpty().withMessage("el password esta basido")
-    .isString().withMessage("el password deve ser un String")
-    .isLength({ min: 4 }).withMessage("el password deve tener como minimo 4 caracteres"),
+  check("email", "Error with the email field")
+    .exists().withMessage("The email is not being sent")
+    .notEmpty().withMessage("The email does not have to be empty")
+    .isEmail().withMessage("the field must be an email")
+    .isLength({ min: 10, max: 50 }).withMessage("The emai must have a minimum of 10 characters and a maximum of 50 characters"),
+  check("password", "Error with the password field")
+    .exists().withMessage("the password is necessary")
+    .notEmpty().withMessage("the password is based")
+    .isString().withMessage("the password must be a String")
+    .isLength({ min: 4 }).withMessage("the password must have at least 4 characters"),
   validateResult,
 ];
 

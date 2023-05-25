@@ -2,18 +2,18 @@ const { check } = require("express-validator");
 const validateResult = require("../utils/validate");
 
 const createConversationValidator = [
-  check("title", "Error en el campo title")
-    .exists().withMessage("El campo title no se envio")
-    .notEmpty().withMessage("El campo title no deve estar vasido")
-    .isString().withMessage("El campo title deve ser un String"),
-  check("typeId", "Error con el campo de typeId")
-    .exists().withMessage("el campo typeId no existe")
-    .notEmpty().withMessage("El campo typeId no deve estar vasido")
-    .isInt().withMessage("el campo typeId deve ser un entero"),
-  check("createdBy", "Error en el campo  createdBy")
-    .exists().withMessage("el campo createdBy no existe")
-    .notEmpty().withMessage("El campo createdBy no deve estar vasido")
-    .isInt().withMessage("el campo createdBy deve ser un entero"),
+  check("title", "Error in the title field")
+    .exists().withMessage("The title field was not sent")
+    .notEmpty().withMessage("The title field must not be empty")
+    .isString().withMessage("The title field must be a String"),
+  check("typeId", "Error with typeId field")
+    .exists().withMessage("the typeId field does not exist")
+    .notEmpty().withMessage("The typeId field must not be empty")
+    .isInt().withMessage("the typeId field must be an integer"),
+  check("createdBy", "Error in the createdBy field")
+    .exists().withMessage("createdBy field does not exist")
+    .notEmpty().withMessage("The created By field must not be empty")
+    .isInt().withMessage("the created By field must be an integer"),
   validateResult
 ];
 
