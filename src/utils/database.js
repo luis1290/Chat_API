@@ -5,7 +5,7 @@ const db = new Sequelize({
   port: 5432,
   database: "db_chat_api",
   username: "postgres",
-  password: "1234",
+  password: "root",
   dialect: "postgres",
   logging: false,
 });
