@@ -37,15 +37,15 @@ const createUserValidator = [
 
 const loginUserValidator = [
   check("email", "Error con el campo email")
-    .exists()
-    .notEmpty()
-    .isEmail()
-    .isLength({ min: 10, max: 50 }),
+    .exists().withMessage("El email no se esta enviando")
+    .notEmpty().withMessage("El email no tiene que ir vasido")
+    .isEmail().withMessage("el campo deve ser un email")
+    .isLength({ min: 10, max: 50 }).withMessage("el emai deve tener minimo 10 caracteres y maximo 50 caracteres"),
   check("password", "Error con el campo password")
-    .exists()
-    .notEmpty()
-    .isString()
-    .isLength({ min: 4 }),
+    .exists().withMessage("el password es nesesario")
+    .notEmpty().withMessage("el password esta basido")
+    .isString().withMessage("el password deve ser un String")
+    .isLength({ min: 4 }).withMessage("el password deve tener como minimo 4 caracteres"),
   validateResult,
 ];
 
