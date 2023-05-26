@@ -26,8 +26,8 @@ const initModels = () => {
 
   // relacion de muchos a muchos
  
-  Users.belongsToMany(Conversations, { through: UsersConversations, foreignKey: "userId", otherKey: "conversaionId", timestamps: false });
-  Conversations.belongsToMany(Users, { through: UsersConversations, foreignKey: "conversaionId", otherKey: "userId", timestamps: false });
+  Users.belongsToMany(Conversations, { through: UsersConversations, foreignKey: "userId", otherKey: "conversationId", timestamps: false });
+  Conversations.belongsToMany(Users, { through: UsersConversations, foreignKey: "conversationId", otherKey: "userId", timestamps: false });
   
 };
 

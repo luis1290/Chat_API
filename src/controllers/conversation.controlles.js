@@ -1,6 +1,7 @@
 const Conversations = require("../models/Conversations.model");
 const Users = require("../models/users.model")
-const Messanges = require("../models/Messanges.model")
+const Messanges = require("../models/Messanges.model");
+const UsersConversations = require("../models/UsersConversations.model");
 
 
 const createConversation = async (req, res, next) => {
@@ -55,10 +56,10 @@ const getConversationByIdWithUsersAndMessanges = async (req, res, next) => {
 }
 
 const deleteConversationById = async (req, res, next) => {
-  try{
-    const {id} = req.params;
+  try {
+    const { id } = req.params;
     await Conversations.destroy({
-      where: {id}
+      where: { id }
     })
     res.status(204).send()
   } catch (error) {
@@ -91,24 +92,34 @@ const createAndGetConversationGroup = async (req, res, next) => {
   }
 };
 
-const deletUserOfConversation = async (req, res, next) => {
+const deletUserGroup = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { createdBy } = req.body;
-    await Conversations.destroy({
-      where: { id, createdBy }
-    });
+    const { conversationId } = req.body;
+    const usersDelete = await Users.findByPk(id);
+    const conversationUser = await Conversations.findByPk(conversationId)
+    console.log(conversationUser.dataValues.typeId);
+
+    if (conversationUser.dataValues.typeId !== 2) {
+      next({
+        status: 400,
+        name: 'type invalid conversation',
+        message: "The conversation should be group"
+      })
+    }
+    await UsersConversations.destroy({
+      where: { userId: usersDelete.id, conversationId: conversationUser.id }
+    })
     res.status(204).send();
   } catch (error) {
-    next(error)
+    console.log("error")
   }
 };
-
 module.exports = {
   createConversation,
   getConversationByUser,
   getConversationByIdWithUsersAndMessanges,
   deleteConversationById,
   createAndGetConversationGroup,
-  deletUserOfConversation
+  deletUserGroup
 };

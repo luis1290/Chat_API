@@ -4,7 +4,7 @@ const { createConversation,
   getConversationByIdWithUsersAndMessanges,
   deleteConversationById,
   createAndGetConversationGroup,
-  deletUserOfConversation
+  deletUserGroup
 } = require("../controllers/conversation.controlles");
 const authenticate = require("../middlewares/auth.middleware");
 const { createConversationValidator } = require("../validators/conversation.validator");
@@ -24,8 +24,9 @@ router.delete("/conversation/delete/:id", authenticate, deleteConversationById)
 //endpoint 5 y 6 en uno
 router.post("/conversation/createandget/:id", authenticate, createConversationValidator, createAndGetConversationGroup);
 
-//eliminar usuario de una conversacion
-router.delete("/conversation/delete/user/:id", authenticate, deletUserOfConversation)
+router.delete("/userDelete/:id", deletUserGroup)
+
+
 
 
 module.exports = router;
