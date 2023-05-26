@@ -97,16 +97,22 @@ const deletUserGroup = async (req, res, next) => {
     const { id } = req.params;
     const { conversationId } = req.body;
     const usersDelete = await Users.findByPk(id);
-    const conversationUser = await Conversations.findAll({
-      where: { id: conversationId, typeId: 2 }
-    });
-    console.log(conversationUser.id);
+    const conversationUser = await Conversations.findByPk(conversationId)
+    console.log(conversationUser.dataValues.typeId);
+
+    if (conversationUser.dataValues.typeId !== 2) {
+      next({
+        status: 400,
+        name: 'type invalid conversation',
+        message: "The conversation should be group"
+      })
+    }
     await UsersConversations.destroy({
-      where: { userId: usersDelete.id, conversaionId: conversationUser.id }
+      where: { userId: usersDelete.id, conversationId: conversationUser.id }
     })
     res.status(204).send();
   } catch (error) {
-    next(error)
+    console.log("error")
   }
 };
 module.exports = {
