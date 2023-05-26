@@ -55,10 +55,10 @@ const getConversationByIdWithUsersAndMessanges = async (req, res, next) => {
 }
 
 const deleteConversationById = async (req, res, next) => {
-  try {
-    const { id } = req.params;
+  try{
+    const {id} = req.params;
     await Conversations.destroy({
-      where: { id }
+      where: {id}
     })
     res.status(204).send()
   } catch (error) {
