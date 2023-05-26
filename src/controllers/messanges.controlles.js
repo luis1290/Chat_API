@@ -7,7 +7,7 @@ const createNewMessange = async (req, res, next) => {
         await Messanges.create({content, createdBy, conversationId})
 
         await UsersConversations.findOrCreate({
-            where:{userId: createdBy, conversaionId: conversationId}
+            where:{userId: createdBy, conversationId: conversationId}
         })
 
         res.status(201).send()
