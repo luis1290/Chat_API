@@ -13,11 +13,21 @@ const createConversation = async (req, res, next) => {
   }
 };
 
+
+
 const getConversationByUser = async (req, res, next) => {
   try {
     const { createdBy } = req.params;
     const userConversations = await Conversations.findAll({
       where: { createdBy },
+      include: [
+        {
+          model: Users,
+          attributes: {
+            exclude: ["password"]
+          }
+        }
+      ]
     })
     res.json(userConversations);
   } catch (error) {
@@ -28,7 +38,7 @@ const getConversationByUser = async (req, res, next) => {
 const getConversationByIdWithUsersAndMessanges = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const conversation = await Conversations.findByPk(id,{
+    const conversation = await Conversations.findByPk(id, {
       include: [
         {
           model: Users,
@@ -45,20 +55,60 @@ const getConversationByIdWithUsersAndMessanges = async (req, res, next) => {
 }
 
 const deleteConversationById = async (req, res, next) => {
-    try{
-      const {id} = req.params;
-      await Conversations.destroy({
-        where: {id}
-      })
-      res.status(204).send()
-    } catch (error) {
-        next(error)
-    }
+  try {
+    const { id } = req.params;
+    await Conversations.destroy({
+      where: { id }
+    })
+    res.status(204).send()
+  } catch (error) {
+    next(error)
+  }
+};
+
+
+// - 5.- Un endpoint que permita crear una conversación grupal
+// - 6.- Un endpoint que permita obtener todas las conversaciones en las que participa un usuario
+const createAndGetConversationGroup = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title, typeId, createdBy } = req.body;
+    await Conversations.create({ title, typeId, createdBy });
+    const userConversations = await Conversations.findAll({
+      where: { createdBy: id },
+      include: [
+        {
+          model: Users,
+          attributes: {
+            exclude: ["password"]
+          }
+        }
+      ]
+    })
+    res.json(userConversations);
+  } catch (error) {
+    next(error)
+  }
+};
+
+const deletUserOfConversation = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { createdBy } = req.body;
+    await Conversations.destroy({
+      where: { id, createdBy }
+    });
+    res.status(204).send();
+  } catch (error) {
+    next(error)
+  }
 };
 
 module.exports = {
   createConversation,
   getConversationByUser,
   getConversationByIdWithUsersAndMessanges,
-  deleteConversationById
+  deleteConversationById,
+  createAndGetConversationGroup,
+  deletUserOfConversation
 };
