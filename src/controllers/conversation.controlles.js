@@ -1,6 +1,7 @@
 const Conversations = require("../models/Conversations.model");
 const Users = require("../models/users.model")
-const Messanges = require("../models/Messanges.model")
+const Messanges = require("../models/Messanges.model");
+const UsersConversations = require("../models/UsersConversations.model");
 
 
 const createConversation = async (req, res, next) => {
@@ -55,10 +56,10 @@ const getConversationByIdWithUsersAndMessanges = async (req, res, next) => {
 }
 
 const deleteConversationById = async (req, res, next) => {
-  try{
-    const {id} = req.params;
+  try {
+    const { id } = req.params;
     await Conversations.destroy({
-      where: {id}
+      where: { id }
     })
     res.status(204).send()
   } catch (error) {
@@ -91,12 +92,28 @@ const createAndGetConversationGroup = async (req, res, next) => {
   }
 };
 
-
-
+const deletUserGroup = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { conversationId } = req.body;
+    const usersDelete = await Users.findByPk(id);
+    const conversationUser = await Conversations.findAll({
+      where: { id: conversationId, typeId: 2 }
+    });
+    console.log(conversationUser.id);
+    await UsersConversations.destroy({
+      where: { userId: usersDelete.id, conversaionId: conversationUser.id }
+    })
+    res.status(204).send();
+  } catch (error) {
+    next(error)
+  }
+};
 module.exports = {
   createConversation,
   getConversationByUser,
   getConversationByIdWithUsersAndMessanges,
   deleteConversationById,
-  createAndGetConversationGroup
+  createAndGetConversationGroup,
+  deletUserGroup
 };
