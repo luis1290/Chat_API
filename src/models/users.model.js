@@ -32,6 +32,9 @@ const Users = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    avatar: {
+      type: DataTypes.TEXT,
+    }
   },
   {
     timestamps: false,
