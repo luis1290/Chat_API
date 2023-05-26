@@ -52,7 +52,7 @@ const login = async (req, res, next) => {
 
     const token = jwt.sign(userData, "parangaricutirimucuaro", {
       algorithm: "HS512",
-      expiresIn: "5m",
+      expiresIn: "60m",
     });
     // agregar el token en userData
     userData.token = token;
