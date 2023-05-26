@@ -91,24 +91,12 @@ const createAndGetConversationGroup = async (req, res, next) => {
   }
 };
 
-const deletUserOfConversation = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const { createdBy } = req.body;
-    await Conversations.destroy({
-      where: { id, createdBy }
-    });
-    res.status(204).send();
-  } catch (error) {
-    next(error)
-  }
-};
+
 
 module.exports = {
   createConversation,
   getConversationByUser,
   getConversationByIdWithUsersAndMessanges,
   deleteConversationById,
-  createAndGetConversationGroup,
-  deletUserOfConversation
+  createAndGetConversationGroup
 };
