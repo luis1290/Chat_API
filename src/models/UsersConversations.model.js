@@ -7,7 +7,7 @@ const UsersConversations = db.define('users_conversations',{
      allowNull: false,
      field: "user_id"
    },
-   conversaionId: {
+   conversationId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: "conversation_id"
