@@ -63,9 +63,25 @@ const login = async (req, res, next) => {
   }
 };
 
+const addAvatar = async (req, res, next) => {
+  try {
+    const {id} = req.params;
+    const {filename} = req.file
+    await Users.update({
+      avatar: filename
+    },{
+      where: {id}
+    })
+    res.status(201).json({ message: '¡Imagen cargada exitosamente!' });
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   createUser,
   login,
+  addAvatar
 };
 
 // alguien esta editando
