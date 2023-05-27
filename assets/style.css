@@ -1,0 +1,57 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(155, 193, 199);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    height: 100vh;
+    width: 100%;
+    border: 10px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-item .svg{
+    width: 200px;
+    height: 200px;
+    background-image: url("/art.svg");
+    background-size: 100%;
+    margin-top: 20px;
+}
+
+.container_btn {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.btn {
+    padding: 5px;
+    border: 2px solid #0f233b;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.postman {
+    background-color: #ff6c37;
+}
+
+.github {
+    background-color: #0d1117;
+}
+
+footer {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+footer a {
+    color: #0f061f;
+    font-weight: bold;
+}

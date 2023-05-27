@@ -9,8 +9,9 @@ const db = require('./utils/database');
 initModels();
 const app = express();
 
+app.set("view engine", "ejs")
 app.use(cors());
-app.use(express.json());
+app.use(express.json(), express.static("assets"));
 
 const PORT = process.env.PORT || 8000;
 
@@ -21,7 +22,7 @@ db.sync({ alter: true })
 
 
 app.get("/", (req, res) => {
-  res.send("Servidor trabajando OK");
+  res.render("home")
 });
 
 // agrupar todas las rutas en un archivo
