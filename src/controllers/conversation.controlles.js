@@ -115,11 +115,52 @@ const deletUserGroup = async (req, res, next) => {
     console.log("error")
   }
 };
+
+const addUserGroup = async (req, res, next) => {
+  try {
+    const {userId, conversationId} = req.body;
+    const user = await Users.findByPk(userId)
+    const conversation = await Conversations.findByPk(conversationId)
+    if(!user) {
+      next({
+        status: 400,
+        name: "Error with the user",
+        message: "It seems that this user does not exist",
+      })
+    }
+    if(!conversation) {
+      next({
+        status: 400,
+        name: "Error with the conversation",
+        message: "It seems that this conversation does not exist",
+      })
+    }
+    if(conversation.dataValues.typeId !== 1) {
+      next({
+        status: 400,
+        name: 'type invalid conversation',
+        message: "The conversation should be group"
+      })
+    }
+
+    await UsersConversations.findOrCreate({
+      where:{userId: userId, conversationId: conversationId}
+    })
+
+    res.status(201).send()
+
+  } catch (error) {
+    next(error)
+  }
+}
+
+
 module.exports = {
   createConversation,
   getConversationByUser,
   getConversationByIdWithUsersAndMessanges,
   deleteConversationById,
   createAndGetConversationGroup,
-  deletUserGroup
+  deletUserGroup,
+  addUserGroup
 };

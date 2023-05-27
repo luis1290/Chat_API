@@ -4,7 +4,8 @@ const { createConversation,
   getConversationByIdWithUsersAndMessanges,
   deleteConversationById,
   createAndGetConversationGroup,
-  deletUserGroup
+  deletUserGroup,
+  addUserGroup
 } = require("../controllers/conversation.controlles");
 const authenticate = require("../middlewares/auth.middleware");
 const { createConversationValidator } = require("../validators/conversation.validator");
@@ -26,7 +27,7 @@ router.post("/conversation/createandget/:id", authenticate, createConversationVa
 
 router.delete("/userDelete/:id", deletUserGroup)
 
-
+router.post("/conversation/group/add_user", addUserGroup)
 
 
 module.exports = router;
