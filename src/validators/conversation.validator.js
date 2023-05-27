@@ -17,6 +17,37 @@ const createConversationValidator = [
   validateResult
 ];
 
+const addUserGroupValidator = [
+  check("userId", "Error in the userId field")
+    .exists()
+    .withMessage("The userId field was not sent")
+    .notEmpty()
+    .withMessage("The userId field must not be empty")
+    .isInt()
+    .withMessage("The userId must have be an integer"),
+  check("conversationId", "Error in the conversationId field")
+    .exists()
+    .withMessage("The conversationId field was not sent")
+    .notEmpty()
+    .withMessage("The conversationId field must not be empty")
+    .isInt()
+    .withMessage("The conversationId must have be an integer"),
+  validateResult
+]
+
+const deleteUserGroupValidator = [
+  check("conversationId", "Error in the conversationId field")
+    .exists()
+    .withMessage("The conversationId field was not sent")
+    .notEmpty()
+    .withMessage("The conversationId field must not be empty")
+    .isInt()
+    .withMessage("The conversationId must have be an integer"),
+  validateResult
+]
+
 module.exports = {
-  createConversationValidator
+  createConversationValidator,
+  addUserGroupValidator,
+  deleteUserGroupValidator
 }

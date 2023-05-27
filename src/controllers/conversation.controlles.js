@@ -100,6 +100,14 @@ const deletUserGroup = async (req, res, next) => {
     const conversationUser = await Conversations.findByPk(conversationId)
     console.log(conversationUser.dataValues.typeId);
 
+    if(!conversationUser) {
+      next({
+        status: 400,
+        name: "Error with the conversation",
+        message: "It seems that this conversation does not exist",
+      })
+    }
+
     if (conversationUser.dataValues.typeId !== 2) {
       next({
         status: 400,
@@ -135,7 +143,7 @@ const addUserGroup = async (req, res, next) => {
         message: "It seems that this conversation does not exist",
       })
     }
-    if(conversation.dataValues.typeId !== 1) {
+    if(conversation.dataValues.typeId !== 2) {
       next({
         status: 400,
         name: 'type invalid conversation',
